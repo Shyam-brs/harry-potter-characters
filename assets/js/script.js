@@ -30,22 +30,28 @@ const loadCharacters = async () => {
 };
 
 const displayCharacters = (characters) => {
-  const htmlString = characters
-    .map((character) => {
-      return `
-            <li class="character">
-                <h2 id="name">${character.name}</h2>
-                <p id="house">House: ${character.house}</p>
-                <p id="actor">Actor: ${character.actor}</p>
-                <p id="ancestry">Ancestry: ${character.ancestry}</p>
-                <p id="dateOfBirth">Date of Birth: ${character.dateOfBirth}</p>
-                <p id="dateOfBirth">Date of Birth: ${character.image}</p>
-                <img src="${character.image || no_image_available}"></img>
-            </li>
-        `;
-    })
-    .join("");
-  charactersList.innerHTML = htmlString;
+  if (characters.length === 0) {
+    charactersList.innerHTML = `<p class="found">No matching characters found.</p>`;
+  } else {
+    const htmlString = characters
+      .map((character) => {
+        return `
+              <li class="character">
+                  <h2 id="name">${character.name}</h2>
+                  <p id="house">House: ${character.house}</p>
+                  <p id="actor">Actor: ${character.actor}</p>
+                  <p id="ancestry">Ancestry: ${character.ancestry}</p>
+                  <p id="dateOfBirth">Date of Birth: ${
+                    character.dateOfBirth
+                  }</p>
+                  <p id="dateOfBirth">Date of Birth: ${character.image}</p>
+                  <img src="${character.image || no_image_available}"></img>
+              </li>
+          `;
+      })
+      .join("");
+    charactersList.innerHTML = htmlString;
+  }
 };
 
 function setTheme(theme) {
